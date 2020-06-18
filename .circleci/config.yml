@@ -11,6 +11,7 @@ jobs:
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
       - run: apt-get install -y imagemagick libmagick++-dev
       - run: apt-get install -y cvs mercurial subversion git bzr
+      - run: apt-get install -y debconf-utils tzdata wget
 
 
 
