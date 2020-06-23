@@ -13,8 +13,14 @@ jobs:
       - run: apt-get install -y cvs mercurial subversion git bzr
       - run: apt-get install -y debconf-utils tzdata wget
       - run: echo 'mysql-server mysql-server/root_password password redmine' | debconf-set-selections
-
-
+      - run: echo 'mysql-server mysql-server/root_password_again password redmine' | debconf-set-selections
+      - run: wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb
+      - run: apt install -y ./mysql-apt-config_0.8.9-1_all.deb
+      - run: apt-get update
+      - run: apt-get install -y --allow-unauthenticated mysql-community-server default-libmysqlclient-dev
+      - run: /etc/init.d/mysql start
+      - run: mysql -u root -predmine -e "CREATE DATABASE redmine CHARACTER SET utf8mb4;"
+ 
 
 
 
