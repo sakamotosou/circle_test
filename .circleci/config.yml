@@ -12,6 +12,7 @@ jobs:
       - run: apt-get install -y imagemagick libmagick++-dev
       - run: apt-get install -y cvs mercurial subversion git bzr
       - run: apt-get install -y debconf-utils tzdata wget
+      - run: debconf-set-selections <<< 'mysql-server mysql-server/root_password password myredmine
 
 
 
