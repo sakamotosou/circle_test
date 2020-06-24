@@ -46,11 +46,11 @@ commands:
       - run: ls
 jobs:
   redmine-test:
-    - executor:
-        name: setup
-    - steps:
-        - build
-        - install
+    executor:
+      name: setup
+    steps:
+      - build
+      - install
 workflows:
   normal:
     jobs:
