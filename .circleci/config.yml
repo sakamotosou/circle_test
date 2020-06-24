@@ -9,6 +9,7 @@ executors:
     working_directory: ~/redmine
 commands:
   build:
+    description: "build"
     steps:
       - run: pwd
       - run: apt-get update
@@ -39,10 +40,13 @@ commands:
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
   install:
+    description: "install"
     steps:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: pwd
+    working_directory: ~/redmine
+    steps:
       - run: ls
 jobs:
   redmine-test:
