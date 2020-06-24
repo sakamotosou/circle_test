@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 executors:
   setup:
@@ -7,10 +7,8 @@ executors:
     environment:
         DEBIAN_FRONTEND: noninteractive
     working_directory: ~/redmine
-
-jobs:
+commands:
   build:
-    executor: setup
     steps:
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
@@ -40,20 +38,22 @@ jobs:
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
   install:
-    executor: setup
     steps:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: pwd
       - checkout
       - run: pwd
-workflows:
-  version: 2
+jobs:
   redmine-test:
-    jobs:
-      - install:
-        requires:
-          - build
+    executor:
+      name: setup
+    steps:
+      - build
+      - install
+workflows:
+  jobs:
+    - redmine-test
       
 
 
