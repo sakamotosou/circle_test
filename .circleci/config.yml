@@ -51,7 +51,10 @@ workflows:
   redmine-test:
     jobs:
       - build
-      - install
+      - install:
+        requires:
+          - build
+      
 
 
 
