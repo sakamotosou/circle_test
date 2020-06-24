@@ -42,19 +42,14 @@ commands:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: pwd
-      - checkout
-      - run: pwd
-jobs:
-  redmine-test:
-    executor:
-      name: setup
-    steps:
-      - build
-      - install
 workflows:
   normal:
     jobs:
-      - redmine-test
+      - executor:
+          name: setup
+      - steps:
+          - build
+          - install
       
 
 
