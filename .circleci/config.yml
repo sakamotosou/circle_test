@@ -34,7 +34,6 @@ jobs:
       - run: unzip chromedriver_linux64.zip
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
-
   install:
     requires:
       - build
@@ -44,6 +43,12 @@ jobs:
       - run: pwd
       - checkout
       - run: pwd
+workflows:
+  version: 2.1
+  redmine-test:
+    jobs:
+      - build
+      - install
 
 
 
