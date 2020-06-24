@@ -42,16 +42,8 @@ jobs:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: pwd
-      - run:  {
-                echo "test:"; \
-                echo "  adapter: mysql2"; \
-                echo "  database: redmine"; \
-                echo "  username: redmine"; \
-                echo "  password: redmine"; \
-                echo "  host: localhost"; \
-                echo "  encoding: utf8"; \
-                } | tee redmine/config/database.yml;
-      - checkout  
+      - checkout
+      - run: pwd
 
 
 
