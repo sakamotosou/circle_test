@@ -33,7 +33,9 @@ jobs:
       - run: unzip chromedriver_linux64.zip
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
-   
+
+  test:
+    steps: 
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: pwd
