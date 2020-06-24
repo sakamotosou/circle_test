@@ -48,7 +48,7 @@ jobs:
       - checkout
       - run: pwd
 workflows:
-  version: 2.1
+  version: 2
   redmine-test:
     jobs:
       - install:
