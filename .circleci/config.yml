@@ -43,7 +43,6 @@ commands:
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
   install:
     description: "install"
-    working_directory: ~/redmine
     steps:
       - run: ls
 jobs:
@@ -53,6 +52,7 @@ jobs:
     steps:
       - build
       - install
+          working_directory: ~/redmine
 workflows:
   normal:
     jobs:
