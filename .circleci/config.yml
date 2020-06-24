@@ -10,6 +10,7 @@ executors:
 commands:
   build:
     steps:
+      - run: pwd
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
@@ -42,14 +43,18 @@ commands:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: pwd
+      - run: ls
+jobs:
+  redmine-test:
+    - executor:
+        name: setup
+    - steps:
+        - build
+        - install
 workflows:
   normal:
     jobs:
-      - executor:
-          name: setup
-      - steps:
-          - build
-          - install
+      - redmine-test
       
 
 
