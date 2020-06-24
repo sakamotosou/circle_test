@@ -51,7 +51,6 @@ workflows:
   version: 2.1
   redmine-test:
     jobs:
-      - build
       - install:
         requires:
           - build
