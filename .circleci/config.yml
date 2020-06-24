@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  - build
+  build:
     docker:
       - image: ruby:2.6-slim-stretch
     environment:
@@ -35,11 +35,32 @@ jobs:
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
 
-  test:
-    steps: 
+  install:
+    requires:
+      - build
+    steps:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: pwd
+      - run:  {
+                echo "test:"; \
+                echo "  adapter: mysql2"; \
+                echo "  database: redmine"; \
+                echo "  username: redmine"; \
+                echo "  password: redmine"; \
+                echo "  host: localhost"; \
+                echo "  encoding: utf8"; \
+                } | tee redmine/config/database.yml;
+      - checkout  
+
+
+
+
+
+
+
+
+
 
 
 
