@@ -39,12 +39,10 @@ commands:
       - run: unzip chromedriver_linux64.zip
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
-  install:
-    description: "install"
-    steps:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
-      - run: pwd
+  install:
+    description: "install"
     working_directory: ~/redmine
     steps:
       - run: ls
