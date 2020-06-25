@@ -44,7 +44,6 @@ commands:
   install:
     description: "install"
     steps:
-      - checkout
       - run:
           working_directory: redmine
           command: pwd
