@@ -45,6 +45,9 @@ commands:
     description: "install"
     steps:
       - run: ls
+      - run: cd redmine
+      - run: ls
+      - run: pwd
 jobs:
   redmine-test:
     executor:
@@ -52,7 +55,6 @@ jobs:
     steps:
       - build
       - install
-          working_directory: ~/redmine
 workflows:
   normal:
     jobs:
