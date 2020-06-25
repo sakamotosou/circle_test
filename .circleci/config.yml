@@ -11,10 +11,6 @@ commands:
   build:
     description: "build"
     steps:
-      - checkout:
-          path: ~/projects/
-      - run
-         command: pwd
       - run: pwd
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
@@ -48,6 +44,7 @@ commands:
   install:
     description: "install"
     steps:
+      - checkout
       - run: ls
       - run: pwd
 jobs:
