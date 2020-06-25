@@ -6,14 +6,12 @@ executors:
       - image: ruby:2.6-slim-stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
-    working_directory: ~/projects/redmine
-commands:
+    working_directory: ~/redmine
+
+jobs:
   build:
-    description: "build"
+    executor: setup
     steps:
-      - checkout:
-          path: ~/projects/
-      - run: pwd
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
@@ -41,24 +39,21 @@ commands:
       - run: unzip chromedriver_linux64.zip
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
+  install:
+    executor: setup
+    steps:
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
-  install:
-    description: "install"
-    steps:
-      - run: ls
       - run: pwd
-jobs:
-  redmine-test:
-    executor:
-      name: setup
-    steps:
-      - build
-      - install
+      - checkout
+      - run: pwd
 workflows:
-  normal:
+  version: 2
+  redmine-test:
     jobs:
-      - redmine-test
+      - install:
+        requires:
+          - build
       
 
 
