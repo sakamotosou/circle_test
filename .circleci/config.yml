@@ -6,7 +6,6 @@ executors:
       - image: ruby:2.6-slim-stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
-    working_directory: ~/projects/redmine
 commands:
   build:
     description: "build"
@@ -45,8 +44,9 @@ commands:
     description: "install"
     steps:
       - checkout
-      - run: ls
-      - run: pwd
+      - run:
+          working_directory: redmine
+          command: pwd
 jobs:
   redmine-test:
     executor:
