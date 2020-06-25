@@ -6,7 +6,7 @@ executors:
       - image: ruby:2.6-slim-stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
-    working_directory: ~/projects
+    working_directory: ~/projects/redmine
 commands:
   build:
     description: "build"
@@ -53,8 +53,9 @@ jobs:
     executor:
       name: setup
     steps:
+      - checkout:
+          path: ~/projects
       - build
-      - install
 workflows:
   normal:
     jobs:
