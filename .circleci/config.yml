@@ -46,7 +46,10 @@ commands:
     steps:
       - run:
           working_directory: redmine
-          command: pwd
+          command: |
+            pwd
+            svn info
+            ls
 jobs:
   redmine-test:
     executor:
