@@ -6,6 +6,11 @@ executors:
       - image: ruby:2.6-slim-stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
+  working_directory:
+    docker:
+      - image: ruby:2.6-slim-stretch
+    environment:
+        DEBIAN_FRONTEND: noninteractive
     working_directory: ~/redmine
 commands:
   build:
@@ -54,11 +59,17 @@ jobs:
       name: setup
     steps:
       - build
+jobs:
+  install-test:
+    executor:
+      name: working_directory
+    steps:
       - install
 workflows:
   normal:
     jobs:
       - redmine-test
+      - install-test
       
 
 
