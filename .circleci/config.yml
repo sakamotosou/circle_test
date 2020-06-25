@@ -45,7 +45,6 @@ commands:
     description: "install"
     steps:
       - run:
-         working_directory: ~/projects/redmine
       - run: ls
       - run: pwd
 jobs:
