@@ -44,7 +44,6 @@ commands:
   install:
     description: "install"
     steps:
-      - run:
       - run: ls
       - run: pwd
 jobs:
