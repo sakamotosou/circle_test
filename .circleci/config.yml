@@ -11,6 +11,7 @@ commands:
   build:
     description: "build"
     steps:
+      - run: ls
       - run: docker ps -aqf "name=container_name"
       - run: pwd
       - run: apt-get update
@@ -48,6 +49,7 @@ commands:
       - run:
           working_directory: redmine
           command: |
+            cp ~/files/database.yml redmine/config/database.yml
             pwd
             svn info
             ls
