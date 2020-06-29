@@ -39,12 +39,20 @@ commands:
       - run: unzip chromedriver_linux64.zip
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
-      - run: rm -rf redmine
-      - run: svn co http://svn.redmine.org/redmine/trunk redmine
   install:
     description: "install"
     steps:
-      - run: pwd
+      - run: rm -rf redmine
+      - run: svn co http://svn.redmine.org/redmine/trunk redmine
+      - run: {
+                echo "test:"; \
+                echo "  adapter: mysql2"; \
+                echo "  database: redmine"; \
+                echo "  username: redmine"; \
+                echo "  password: redmine"; \
+                echo "  host: localhost"; \
+                echo "  encoding: utf8"; \
+                } | tee redmine/config/database.yml;
       - run:
           working_directory: redmine
           command: |
