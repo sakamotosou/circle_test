@@ -11,6 +11,7 @@ commands:
   build:
     description: "build"
     steps:
+      - run: docker ps -aqf "name=container_name"
       - run: pwd
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
