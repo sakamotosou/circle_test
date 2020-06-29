@@ -6,11 +6,12 @@ executors:
       - image: ruby:2.6-slim-stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
-    working_directory: files/
+    working_directory: ~/
 commands:
   build:
     description: "build"
     steps:
+      - run: ls /tmp/
       - run: find ./ -name database.yml
       - run: pwd
       - run: apt-get update
