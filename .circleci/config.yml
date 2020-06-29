@@ -11,7 +11,6 @@ commands:
   build:
     description: "build"
     steps:
-      - run: ls /tmp/circleci-650701022
       - run: ls /bin/bash/
       - run: find ./ -name database.yml
       - run: pwd
