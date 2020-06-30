@@ -11,6 +11,7 @@ commands:
   build:
     description: "build"
     steps:
+      - checkout
       - run: ls
       - run: find ./ -name database.yml
       - run: pwd
@@ -58,7 +59,6 @@ jobs:
     executor:
       name: setup
     steps:
-      - checkout
       - build
       - install
 workflows:
