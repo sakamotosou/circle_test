@@ -11,7 +11,9 @@ commands:
   build:
     description: "build"
     steps:
-      - run: /bin/docker cp
+      - run: apt-get update
+      - run: apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+      - run: docker cp
       - run: ls
       - run: find ./ -name database.yml
       - run: pwd
