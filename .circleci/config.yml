@@ -12,7 +12,7 @@ commands:
     description: "build"
     steps:
       - run: apt-get update
-      - run: apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+      - run: apt-get install -y docker-ce docker-ce-cli containerd.io
       - run: docker cp
       - run: ls
       - run: find ./ -name database.yml
