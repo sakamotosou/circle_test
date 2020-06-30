@@ -2,6 +2,11 @@ version: 2.1
 
 executors:
   setup:
+    docker:
+      - image: ruby:2.6-slim-stretch
+    environment:
+        DEBIAN_FRONTEND: noninteractive
+    working_directory: ~/
 commands:
   build:
     description: "build"
@@ -50,15 +55,12 @@ commands:
             ls
 jobs:
   redmine-test:
+    executor:
+      name: setup
     steps:
-      - run:|
-         docker create -v /cfg --name configs ruby:2.6-slim-stretch /bin/true
-         docker cp ~/* configs:/cf
-         docker run --volumes-from configs ruby:2.6-slim-stretch
-      - run:|
-         docker run --name app ruby:2.6-slim-stretch
-      - run:|
-         docker cp app:/output ~/
+      - checkout
+      - build
+      - install
 workflows:
   normal:
     jobs:
