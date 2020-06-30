@@ -11,6 +11,7 @@ commands:
   build:
     description: "build"
     steps:
+      - run: docker cp
       - run: ls
       - run: find ./ -name database.yml
       - run: pwd
