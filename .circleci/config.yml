@@ -11,6 +11,15 @@ commands:
   build:
     description: "build"
     steps:
+      - run:|
+         docker create -v /cfg --name configs ruby:2.6-slim-stretch /bin/true
+         docker cp ~/* configs:/cfg
+         docker run --volumes-from configs ruby:2.6-slim-stretch
+      - run:|
+         docker run --name app ruby:2.6-slim-stretch
+      - run:|
+         docker cp app:/output ~/
+      - run: docker cp 
       - run: apt-get update
       - run: apt-get install -y docker-ce docker-ce-cli containerd.io
       - run: docker cp
@@ -58,8 +67,6 @@ commands:
             ls
 jobs:
   redmine-test:
-    executor:
-      name: setup
     steps:
       - build
       - install
