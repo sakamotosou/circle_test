@@ -2,14 +2,6 @@ version: 2.1
 
 executors:
   setup:
-    - run:|
-       docker create -v /cfg --name configs ruby:2.6-slim-stretch /bin/true
-       docker cp ~/* configs:/cf
-       docker run --volumes-from configs ruby:2.6-slim-stretch
-    - run:|
-       docker run --name app ruby:2.6-slim-stretch
-    - run:|
-       docker cp app:/output ~/
 commands:
   build:
     description: "build"
@@ -58,11 +50,15 @@ commands:
             ls
 jobs:
   redmine-test:
-    executor:
-      name: setup
     steps:
-      - build
-      - install
+      - run:|
+         docker create -v /cfg --name configs ruby:2.6-slim-stretch /bin/true
+         docker cp ~/* configs:/cf
+         docker run --volumes-from configs ruby:2.6-slim-stretch
+      - run:|
+         docker run --name app ruby:2.6-slim-stretch
+      - run:|
+         docker cp app:/output ~/
 workflows:
   normal:
     jobs:
