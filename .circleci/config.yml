@@ -6,7 +6,6 @@ executors:
       - image: ruby:2.6-slim-stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
-    working_directory: ~/
 commands:
   build:
     description: "build"
