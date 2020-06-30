@@ -2,18 +2,18 @@ version: 2.1
 
 executors:
   setup:
-    - run:|
-       docker create -v /cfg --name configs ruby:2.6-slim-stretch /bin/true
-       docker cp ~/* configs:/cf
-       docker run --volumes-from configs ruby:2.6-slim-stretch
-    - run:|
-       docker run --name app ruby:2.6-slim-stretch
-    - run:|
-       docker cp app:/output ~/
+    docker:
+      - image: ruby:2.6-slim-stretch
+    environment:
+        DEBIAN_FRONTEND: noninteractive
+    working_directory: ~/
 commands:
   build:
     description: "build"
     steps:
+      - run: apt-get update
+      - run: apt-get install -y docker-ce docker-ce-cli containerd.io
+      - run: docker cp
       - run: ls
       - run: find ./ -name database.yml
       - run: pwd
