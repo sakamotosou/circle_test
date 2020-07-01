@@ -11,6 +11,8 @@ commands:
     description: "build"
     steps:
       - checkout
+      - ls
+      - find ./ -name database.yml
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
@@ -42,6 +44,8 @@ commands:
     description: "install"
     steps:
       - checkout
+      - ls
+      - find ./ -name database.yml
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: cp ~/files/database.yml ~/redmine/config/database.yml
