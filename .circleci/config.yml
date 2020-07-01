@@ -54,8 +54,9 @@ commands:
           command: |
             ls
             svn info
-            cp ../files/change_time_zone.sh ./redmine/change_time_zone.sh
-            cp ../files/skip_test.rb ./redmine/skip_test.rb
+            cp ../files/change_time_zone.sh change_time_zone.sh
+            cp ../files/skip_test.rb skip_test.rb
+            ls
             rm -rf plugins/redmine_issue_templates
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
@@ -72,6 +73,17 @@ commands:
             bundle exec rake redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=view_customize RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=redmine_vividtone_my_page_blocks RAILS_ENV=test
+  test-utc:
+    description: "test-utc"
+    step:
+      - checkout
+      - run:
+          working_directory: redmine
+          command: |
+            ls
+            touch build_result.txt
+            sh change_time_zone.sh UTC > build_result.txt
+            cat build_result.txt
 jobs:
   redmine-test:
     executor:
