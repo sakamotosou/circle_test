@@ -53,7 +53,6 @@ commands:
           working_directory: redmine
           command: |
             ls
-            svn info
             cat ./config/database.yml
             cat ./Gemfile
             bundle install
