@@ -52,9 +52,10 @@ commands:
       - run:
           working_directory: redmine
           command: |
+            ls
             svn info
-            cp ./files/change_time_zone.sh ./redmine/change_time_zone.sh
-            cp ./files/skip_test.rb ./redmine/skip_test.rb
+            cp ../files/change_time_zone.sh ./redmine/change_time_zone.sh
+            cp ../files/skip_test.rb ./redmine/skip_test.rb
             rm -rf plugins/redmine_issue_templates
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
