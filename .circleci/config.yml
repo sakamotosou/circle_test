@@ -54,6 +54,7 @@ commands:
           command: |
             ls
             svn info
+            bundle install
             cp ../files/change_time_zone.sh change_time_zone.sh
             cp ../files/skip_test.rb skip_test.rb
             ls
