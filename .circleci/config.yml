@@ -59,6 +59,8 @@ commands:
             ls
             rm -rf plugins/redmine_issue_templates
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
+            ls
+            ls plugins/redmine_issue_templates/
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
             rm -rf plugins/view_customize
             git clone https://github.com/onozaty/redmine-view-customize plugins/view_customize
