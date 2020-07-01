@@ -91,6 +91,7 @@ jobs:
     steps:
       - build
       - install
+      - test-utc
 workflows:
   normal:
     jobs:
