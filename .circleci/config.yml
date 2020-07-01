@@ -75,7 +75,7 @@ commands:
             bundle exec rake redmine:plugins:migrate NAME=redmine_vividtone_my_page_blocks RAILS_ENV=test
   test-utc:
     description: "test-utc"
-    step:
+    steps:
       - checkout
       - run:
           working_directory: redmine
