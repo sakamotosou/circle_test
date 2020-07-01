@@ -48,13 +48,13 @@ commands:
       - run: find ./ -name database.yml
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
-      - run: cp ~/files/database.yml ~/redmine/config/database.yml
+      - run: cp ./files/database.yml ./redmine/config/database.yml
       - run:
           working_directory: redmine
           command: |
             svn info
-            cp ~/files/change_time_zone.sh ~/redmine/change_time_zone.sh
-            cp ~/files/skip_test.rb ~/redmine/skip_test.rb
+            cp ./files/change_time_zone.sh ./redmine/change_time_zone.sh
+            cp ./files/skip_test.rb ./redmine/skip_test.rb
             rm -rf plugins/redmine_issue_templates
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
