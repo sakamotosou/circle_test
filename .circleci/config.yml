@@ -106,6 +106,10 @@ commands:
             cat build_result.txt
             svn revert test/functional/issues_controller_test.rb
             svn revert test/unit/mailer_test.rb
+      - run:
+          command: |
+            echo "fail test-utc"
+          when: on_fail
   test-american_samoa:
     description: "test-american_samoa"
     steps:
@@ -118,6 +122,10 @@ commands:
             sh change_time_zone.sh "American Samoa" > build_result.txt
             cat build_result.txt
             svn revert test/unit/mailer_test.rb
+      - run:
+          command: |
+            echo "fail test-utc"
+          when: on_fail
 jobs:
   redmine-test:
     executor:
