@@ -89,6 +89,10 @@ commands:
             touch build_result.txt
             sh change_time_zone.sh UTC > build_result.txt
             cat build_result.txt
+      - run:
+          command: |
+            echo "fail test-utc"
+          when: on_fail
   test-tokyo:
     description: "test-tokyo"
     steps:
