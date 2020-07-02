@@ -129,16 +129,16 @@ commands:
             echo "fail test-american_samoa"
             cat build_result.txt
           when: on_fail
-   test-redmine_issue_templates:
-     description: "test-redmine_issue_templates"
-     steps:
-       - checkout
-       - run:
-           working_directory: redmine
-           command: |
-             bundle exec rake redmine:plugins:test NAME=redmine_issue_templates RAILS_ENV=test > build_result.txt
-             cat build_result.txt
-             sed -i "/Options.new/s/$/(args: [\'--headless\', \'--no-sandbox\', \'--disable-gpu\', \'--window-size=1280,800\'])/g" plugins/redmine_issue_templates/spec/rails_helper.rb
+  test-redmine_issue_templates:
+    description: "test-redmine_issue_templates"
+    steps:
+      - checkout
+      - run:
+          working_directory: redmine
+          command: |
+            bundle exec rake redmine:plugins:test NAME=redmine_issue_templates RAILS_ENV=test > build_result.txt
+            cat build_result.txt
+            sed -i "/Options.new/s/$/(args: [\'--headless\', \'--no-sandbox\', \'--disable-gpu\', \'--window-size=1280,800\'])/g" plugins/redmine_issue_templates/spec/rails_helper.rb
       - run:
           command: |
             echo "fail test-redmine_issue_templates"
