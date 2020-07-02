@@ -92,6 +92,7 @@ commands:
       - run:
           command: |
             echo "fail test-utc"
+            cat build_result.txt
           when: on_fail
   test-tokyo:
     description: "test-tokyo"
@@ -109,6 +110,7 @@ commands:
       - run:
           command: |
             echo "fail test-tokyo"
+            cat build_result.txt
           when: on_fail
   test-american_samoa:
     description: "test-american_samoa"
@@ -125,6 +127,7 @@ commands:
       - run:
           command: |
             echo "fail test-american_samoa"
+            cat build_result.txt
           when: on_fail
 jobs:
   redmine-test:
