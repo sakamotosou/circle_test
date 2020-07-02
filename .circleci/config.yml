@@ -6,6 +6,7 @@ executors:
       - image: ruby:2.6-slim-stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
+        RUBYOPT: -EUTF-8
 commands:
   build:
     description: "build"
@@ -88,6 +89,31 @@ commands:
             touch build_result.txt
             sh change_time_zone.sh UTC > build_result.txt
             cat build_result.txt
+  test-tokyo:
+    description: "test-tokyo"
+    steps:
+      - checkout
+      - run:
+          working_directory: redmine
+          command: |
+            ls
+            ruby skip_test.rb TOKYO_SKIP_TESTS
+            sh change_time_zone.sh Tokyo > build_result.txt
+            cat build_result.txt
+            svn revert test/functional/issues_controller_test.rb
+            svn revert test/unit/mailer_test.rb
+  test-american_samoa:
+    description: "test-american_samoa"
+    steps:
+      - checkout
+      - run:
+          working_directory: redmine
+          command: |
+            ls
+            ruby skip_test.rb SAMOA_SKIP_TESTS
+            sh change_time_zone.sh "American Samoa" > build_result.txt
+            cat build_result.txt
+            svn revert test/unit/mailer_test.rb
 jobs:
   redmine-test:
     executor:
@@ -96,6 +122,8 @@ jobs:
       - build
       - install
       - test-utc
+      - test-tokyo
+      - test-american_samoa
 workflows:
   normal:
     jobs:
