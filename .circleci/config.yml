@@ -105,8 +105,6 @@ commands:
             ruby skip_test.rb TOKYO_SKIP_TESTS
             sh change_time_zone.sh Tokyo > build_result.txt
             cat build_result.txt
-            svn revert test/functional/issues_controller_test.rb
-            svn revert test/unit/mailer_test.rb
       - run:
           command: |
             echo "fail test-tokyo"
