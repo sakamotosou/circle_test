@@ -108,7 +108,7 @@ commands:
             svn revert test/unit/mailer_test.rb
       - run:
           command: |
-            echo "fail test-utc"
+            echo "fail test-tokyo"
           when: on_fail
   test-american_samoa:
     description: "test-american_samoa"
@@ -124,7 +124,7 @@ commands:
             svn revert test/unit/mailer_test.rb
       - run:
           command: |
-            echo "fail test-utc"
+            echo "fail test-american_samoa"
           when: on_fail
 jobs:
   redmine-test:
@@ -133,7 +133,6 @@ jobs:
     steps:
       - build
       - install
-      - test-utc
       - test-tokyo
       - test-american_samoa
 workflows:
