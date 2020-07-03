@@ -22,7 +22,7 @@ commands:
       - run: apt-get install -y cvs mercurial subversion git bzr
 
 
-      - run: apt-get install -y postgresql-server-dev-9.5
+      - run: apt-get install -y postgresql postgresql-server-dev-9.5
       - run: /etc/init.d/postgresql start
       - run: su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\""
 
