@@ -12,8 +12,6 @@ commands:
     description: "build"
     steps:
       - checkout
-      - run: ls
-      - run: find ./ -name database.yml
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
@@ -45,24 +43,19 @@ commands:
     description: "install"
     steps:
       - checkout
-      - run: ls
-      - run: find ./ -name database.yml
       - run: rm -rf redmine
-      - run: git clone https://github.com/redmica/redmica.git -b stable-1.0 redmine
+      - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: cp ./files/database.yml ./redmine/config/database.yml
       - run:
           working_directory: redmine
           command: |
-            ls
             cat ./config/database.yml
             cat ./Gemfile
             bundle install
             cp ../files/change_time_zone.sh change_time_zone.sh
             cp ../files/skip_test.rb skip_test.rb
-            ls
             rm -rf plugins/redmine_issue_templates
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
-            ls
             ls plugins/redmine_issue_templates/
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
             rm -rf plugins/view_customize
@@ -85,7 +78,6 @@ commands:
       - run:
           working_directory: redmine
           command: |
-            ls
             touch build_result.txt
             sh change_time_zone.sh UTC > build_result.txt
             cat build_result.txt
@@ -101,7 +93,6 @@ commands:
       - run:
           working_directory: redmine
           command: |
-            ls
             ruby skip_test.rb TOKYO_SKIP_TESTS
             sh change_time_zone.sh Tokyo > build_result.txt
             cat build_result.txt
@@ -117,7 +108,6 @@ commands:
       - run:
           working_directory: redmine
           command: |
-            ls
             ruby skip_test.rb SAMOA_SKIP_TESTS
             sh change_time_zone.sh "American Samoa" > build_result.txt
             cat build_result.txt
