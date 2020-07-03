@@ -12,6 +12,7 @@ commands:
     description: "build"
     steps:
       - checkout
+      - run: cat /etc/debian_version
       - run: ls
       - run: find ./ -name database.yml
       - run: apt-get update
