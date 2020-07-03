@@ -1,7 +1,8 @@
 test:
-  adapter: mysql2
+  adapter: postgresql
   database: redmine
-  username: redmine
-  password: redmine
+  username: postgres
+  password: postgres
   host: localhost
   encoding: utf8
+  template: template0
