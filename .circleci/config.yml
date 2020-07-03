@@ -21,7 +21,7 @@ commands:
       - run: apt-get install -y cvs mercurial subversion git bzr
 
 
-      - run: apt-get install -y postgresql postgresql-server-dev-10
+      - run: apt-get install -y postgresql postgresql-server-dev-11
       - run: /etc/init.d/postgresql start
       - run: su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\""
 
