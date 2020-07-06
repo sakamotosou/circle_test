@@ -8,10 +8,12 @@ executors:
         DEBIAN_FRONTEND: noninteractive
         RUBYOPT: -EUTF-8
 commands:
-  setup_environment:
-    description: "setup_environment"
+  build:
+    description: "build"
     steps:
       - checkout
+      - run: ls
+      - run: find ./ -name database.yml
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
@@ -39,23 +41,29 @@ commands:
       - run: unzip chromedriver_linux64.zip
       - run: chmod 755 chromedriver
       - run: mv chromedriver /usr/local/bin/
-  build_myredmine:
-    description: "build_myredmine"
+  install:
+    description: "install"
     steps:
       - checkout
+      - run: ls
+      - run: find ./ -name database.yml
       - run: rm -rf redmine
-      - run: svn co http://svn.redmine.org/redmine/trunk redmine
+      - run: git clone https://github.com/redmica/redmica.git -b stable-1.1 redmine
       - run: cp ./files/database.yml ./redmine/config/database.yml
       - run:
           working_directory: redmine
           command: |
+            ls
             cat ./config/database.yml
             cat ./Gemfile
             bundle install
             cp ../files/change_time_zone.sh change_time_zone.sh
             cp ../files/skip_test.rb skip_test.rb
+            ls
             rm -rf plugins/redmine_issue_templates
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
+            ls
+            ls plugins/redmine_issue_templates/
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
             rm -rf plugins/view_customize
             git clone https://github.com/onozaty/redmine-view-customize plugins/view_customize
@@ -70,13 +78,14 @@ commands:
             bundle exec rake redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=view_customize RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=redmine_vividtone_my_page_blocks RAILS_ENV=test
-  test_redmine_utc:
-    description: "test_redmine_utc"
+  test-utc:
+    description: "test-utc"
     steps:
       - checkout
       - run:
           working_directory: redmine
           command: |
+            ls
             touch build_result.txt
             sh change_time_zone.sh UTC > build_result.txt
             cat build_result.txt
@@ -85,13 +94,14 @@ commands:
             echo "fail test-utc"
             cat build_result.txt
           when: on_fail
-  test_redmine_tokyo:
-    description: "test_redmine_tokyo"
+  test-tokyo:
+    description: "test-tokyo"
     steps:
       - checkout
       - run:
           working_directory: redmine
           command: |
+            ls
             ruby skip_test.rb TOKYO_SKIP_TESTS
             sh change_time_zone.sh Tokyo > build_result.txt
             cat build_result.txt
@@ -100,13 +110,14 @@ commands:
             echo "fail test-tokyo"
             cat build_result.txt
           when: on_fail
-  test_redmine_samoa:
-    description: "test_redmine_samoa"
+  test-american_samoa:
+    description: "test-american_samoa"
     steps:
       - checkout
       - run:
           working_directory: redmine
           command: |
+            ls
             ruby skip_test.rb SAMOA_SKIP_TESTS
             sh change_time_zone.sh "American Samoa" > build_result.txt
             cat build_result.txt
@@ -115,8 +126,8 @@ commands:
             echo "fail test-american_samoa"
             cat build_result.txt
           when: on_fail
-  test_redmine_issue_templates:
-    description: "test_redmine_issue_templates"
+  test-redmine_issue_templates:
+    description: "test-redmine_issue_templates"
     steps:
       - checkout
       - run:
@@ -135,12 +146,11 @@ jobs:
     executor:
       name: setup
     steps:
-      - setup_environment
-      - build_myredmine
-      - test_redmine_utc
-      - test_redmine_tokyo
-      - test_redmine_samoa
-      - test_redmine_issue_templates
+      - build
+      - install
+      - test-tokyo
+      - test-american_samoa
+      - test-redmine_issue_templates
 workflows:
   normal:
     jobs:
